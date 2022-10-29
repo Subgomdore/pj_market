@@ -9,7 +9,10 @@
 <body>
 
 <script>
-location.href="mainpage";
+
+	/* 메인페이지로 이동 */
+	location.href="mainpage";
+
 </script>
 
 
