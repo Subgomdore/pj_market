@@ -1,12 +1,7 @@
 package pjmarket.controller;
 
-import java.io.File;
-
-
 import java.util.ArrayList;
 import java.util.List;
-import java.util.StringTokenizer;
-import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -16,20 +11,15 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.multipart.MultipartFile;
 
 import pjmarket.model.Cart;
 import pjmarket.model.CartList;
 import pjmarket.model.LikeList;
-import pjmarket.model.Product;
 import pjmarket.model.QnaBoard;
-import pjmarket.model.Review;
 import pjmarket.service.CartServiceImpl;
 import pjmarket.service.LikeServiceImpl;
 import pjmarket.service.MemberServiceImpl;
-import pjmarket.service.ProductServiceImpl;
 import pjmarket.service.QnaServiceImpl;
-import pjmarket.service.ReviewService;
 import pjmarket.service.ReviewServiceImpl;
 
 @Controller
@@ -47,7 +37,6 @@ public class MarketController {
 	@Autowired
 	private CartServiceImpl cs;
 	
-	@Autowired
 	@Autowired
 	private ReviewServiceImpl rs;
 
