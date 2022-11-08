@@ -17,7 +17,7 @@ alert("글수정 성공");
 //	location.href="boardcontent.do?no=${board.no}&page=${page}";	//상세 페이지
 	</script>
 	
-	<c:if test="${result != 1}">
+	<c:if test="${result == -1}">
 	<script>
 		alert("글수정 실패");
 		history.go(-1);

@@ -98,7 +98,7 @@ public class OfficialController {
 
 		OfficialBoard off = os.getOfficialBoard(off_num); // 상세 정보 구하기
 
-		model.addAttribute("off", off);
+		model.addAttribute("off_update", off);
 		model.addAttribute("page", page);
 
 		return "Official/off_updateform";

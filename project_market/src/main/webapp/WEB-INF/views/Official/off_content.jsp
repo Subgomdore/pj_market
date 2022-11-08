@@ -36,9 +36,11 @@
 					<td><pre>${off.off_content}</pre></td>
 				</tr>
 				<tr>
-					<td colspan=2 align=center><input type="button" value="목록"
-						onClick="location.href='off_list.do?page=${page}'"> <input
-						type="button" value="수정"
+					<td colspan=2 align=center>
+					<input type="button" value="목록"
+						onClick="location.href='off_list.do?page=${page}'"> 
+				
+					<input type="button" value="수정"
 						onClick="location.href='off_updateform.do?off_num=${off.off_num}&page=${page}'">
 
 						<input type="button" value="삭제"
