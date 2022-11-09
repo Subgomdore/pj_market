@@ -5,7 +5,12 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Login_go.do</title>
+<title>member_login_ok.do</title>
+
+<script src="http://code.jquery.com/jquery-latest.js"></script>
+
+
+
 </head>
 <body>
 	<section class="main-pj">
@@ -13,7 +18,7 @@
 
 			<div id="member_login" >
 				<h2 class="login_title">로그인</h2>
-				<form method="post" action="member_login_ok.do" onsubmit="return check()">
+				<form method="post" action="member_login_ok.do" onsubmit="return login_check()">
 					<table id="login_t">
 						<tr>
 							<th>ID</th>

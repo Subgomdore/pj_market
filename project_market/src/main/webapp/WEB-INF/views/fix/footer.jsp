@@ -26,10 +26,11 @@
 
 <!-- cart관련 -->
 <script src="${path}/resources/js/cart.js"></script>
-  
+
 <!-- Mebmer관련 -->
 <script src="${path}/resources/js/jquery.js"></script>
+<script src="${path}/resources/js/member.js"></script>  
 <script src="http://code.jquery.com/jquery-latest.js"></script>
-<script src="${path}/resources/js/member.js"></script>
+
 <script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
 </html>

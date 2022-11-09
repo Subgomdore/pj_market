@@ -1,6 +1,7 @@
 ﻿
  function check(){
 	 if($.trim($("#member_id").val())==""){
+		 console.log("member");
 		 alert("아이디를 입력하세요.");
 		 $("#member_id").val("").focus();
 		 return false;
@@ -15,12 +16,12 @@
 		 $("#member_pw2").val("").focus();
 		 return false;
 	 }
-	 if($.trim($("#member_pwd").val()) != $.trim($("#member_pwd2").val())){
+	 if($.trim($("#member_pw").val()) != $.trim($("#member_pw2").val())){
 		 //!=같지않다 연산. 비번이 다를 경우
 		 alert("비밀번호가 다릅니다.");
-		 $("#member_pwd1").val("");
-		 $("#member_pwd2").val("");
-		 $("#member_pwd1").focus();
+		 $("#member_pw1").val("");
+		 $("#member_pw2").val("");
+		 $("#member_pw1").focus();
 		 return false;
 	 }
 	 if($.trim($("#member_name").val())==""){
@@ -58,8 +59,29 @@
 		 alert("메일 주소를 입력하세요.");
 		 $("#member_domain").val("").focus();
 		 return false;
-	 }	 	 
+	 }	 	 	 
  }
+ 
+ 
+
+ function login_check(){
+	 if($.trim($("#member_id").val())==""){
+		 alert("로그인 아이디를 입력하세요!");
+		 $("#member_id").val("").focus();
+		 return false;
+	 }
+	 if($.trim($("#member_pw").val())==""){
+		 alert("비밀번호를 입력하세요!");
+		 $("#member_pw").val("").focus();
+		 return false;
+	 }
+ }
+
+ 
+ 
+ 
+ 
+ 
  
 function post_search(){
 	alert("우편번호 검색 버튼을 클릭하세요.");
@@ -107,7 +129,7 @@ function id_check(){
 	//아이디 중복확인
     $.ajax({
         type:"POST",
-        url:"member_idcheck.do",
+        url:"/member_idcheck.do",
         data: {"member_id":member_id},        
         success: function (data) { 
 
