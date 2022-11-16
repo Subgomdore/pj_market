@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ include file="../fix/header.jsp"%>
@@ -14,10 +15,6 @@
 			<div class="offwirte-writer-pj">
 				<div class="offwirte-writer-col-pj">작성자</div>
 				<div class="offwirte-input-pj"><input type=text name="off_name" required="required"value =${off.off_name } autofocus="autofocus"></div>
-			</div>
-			<div class="offwirte-writer-pj">
-				<div class="offwirte-writer-col-pj">비밀번호</div>
-				<div class="offwirte-input-pj"><input type=password name="off_pw" required="required"></div>
 			</div>
 			<div class="offwirte-writer-pj">
 				<div class="offwirte-writer-col-pj">제목</div>
