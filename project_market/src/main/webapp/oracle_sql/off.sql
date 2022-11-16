@@ -21,6 +21,15 @@ CREATE SEQUENCE official_seq
 	INCREMENT BY 1
 	START WITH 1;
 	
+		update official set(
+		
+		off_name=#{off_name},
+		off_subject=#{off_subject},
+		off_content=#{off_content},
+		off_date=sysdate
+		where off_num=#{off_num}
+		);
+	
 	
 INSERT INTO official VALUES(official_seq.nextval, '마스터', '비밀번호', '공지사항', '공지사항내용', 0, sysdate);
 	

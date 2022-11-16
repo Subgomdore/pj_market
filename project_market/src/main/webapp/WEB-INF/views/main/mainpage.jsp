@@ -4,6 +4,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ include file="../fix/header.jsp"%>
+<<<<<<< HEAD
 <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1"/>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.css" />
 <c:set var="path" value="${pageContext.request.contextPath }" />
@@ -61,6 +62,15 @@
 			</c:forEach>
 		</div>
 	</div>
+=======
+<section class="main">
+
+	
+		활성화된 세션: ${member_id }
+		
+
+
+>>>>>>> branch 'ob2' of https://github.com/Subgomdore/pj_market.git
 </section>
 <%@ include file="../fix/footer.jsp"%>
 <script src="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.js"></script>

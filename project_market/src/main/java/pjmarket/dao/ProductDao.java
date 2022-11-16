@@ -7,6 +7,7 @@ public interface ProductDao {
 
   int insertProduct(Product product) throws Exception;
 
+
   int getProductCount(String product_l) throws Exception;
 
   List<Product> getProductlist(int page, String product_l) throws Exception;
@@ -24,6 +25,7 @@ public interface ProductDao {
   int updateProduct(Product product) throws Exception;
 
   List<Product> getProductlist() throws Exception;
+
 
 
 }

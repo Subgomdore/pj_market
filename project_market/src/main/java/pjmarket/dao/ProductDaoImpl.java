@@ -97,4 +97,14 @@ public class ProductDaoImpl implements ProductDao {
     List<Product> mainlist = sqlSession.selectList("productns.main_list");
     return mainlist;
   }
+
+
+
+	
+
+
+	public int getTotalMain(Product product) {
+		return sqlSession.selectOne("productns.getTotalMain", product);
+	}
+	
 }

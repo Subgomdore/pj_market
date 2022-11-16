@@ -94,8 +94,10 @@ public class OfficialController {
 
     OfficialBoard off = os.getOfficialBoard(off_num); // 상세 정보 구하기
 
-    model.addAttribute("off", off);
-    model.addAttribute("page", page);
+
+		model.addAttribute("off_update", off);
+		model.addAttribute("page", page);
+
 
     return "Official/off_updateform";
   }
@@ -112,13 +114,7 @@ public class OfficialController {
     System.out.println("new pw " + off.getOff_pw());
     System.out.println("result2 " + result);
 
-    // 비밀번호 비교문
-    if (old.getOff_pw().equals(off.getOff_pw())) { // 비밀번호 일치
 
-      result = os.off_update(off); // 글수정
-    } else { // 비밀번호 불일치
-      result = -1;
-    }
     System.out.println("result3 " + result);
 
     model.addAttribute("result", result);

@@ -39,8 +39,12 @@
         
         
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/main/resources"/>
+<<<<<<< HEAD
                 		
         
+=======
+        		
+>>>>>>> branch 'ob2' of https://github.com/Subgomdore/pj_market.git
         <property name="java-output-path" value="target/classes"/>
                                 
         

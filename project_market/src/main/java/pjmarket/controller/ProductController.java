@@ -5,16 +5,21 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.StringTokenizer;
 import java.util.UUID;
+
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
+
 import pjmarket.model.Options;
 import pjmarket.model.Product;
 import pjmarket.service.OptionsServiceImpl;
+import pjmarket.service.Paging;
 import pjmarket.service.ProductServiceImpl;
 import pjmarket.service.QnaServiceImpl;
 
@@ -31,7 +36,7 @@ public class ProductController {
   private QnaServiceImpl qs;
 
   // 상품등록 폼이동
-  @RequestMapping("insertproductform.do" )
+  @RequestMapping("insertproductform.do")
   public String insertProductForm() {
     return "main/product_insert";
   }
@@ -575,5 +580,42 @@ public class ProductController {
 
     return "main/uploadResult";
   }
+  
+  @RequestMapping("productsearch.do")	// 전체 목록, 검색 목록
+ 	public String productSearchList(HttpSession session, HttpServletRequest request,String pageNum, Product product, Model model) {
+ 		
+ 		final int rowPerPage = 10;	// 화면에 출력할 데이터 갯수
+ 		if (pageNum == null || pageNum.equals("")) {
+ 			pageNum = "1";
+ 		}
+ 		int currentPage = Integer.parseInt(pageNum); // 현재 페이지 번호
+ 		
+ 		int total = ps.getTotalMain(product); // 검색 (데이터 갯수)
+ 		
+ 		int startRow = (currentPage - 1) * rowPerPage + 1;
+ 		int endRow = startRow + rowPerPage - 1;
+ 		
+ 		Paging pp = new Paging(total, rowPerPage, currentPage);
+ 		product.setStartRow(startRow);
+ 		product.setEndRow(endRow);
+
+ 		List<Product> productlist = new ArrayList<Product>();
+
+ 		System.out.println(product.getSearch());
+ 		System.out.println(product.getKeyword());
+ 		
+ 		//상품목록
+ 		model.addAttribute("list", productlist);
+ 		
+ 		//페이징
+ 		model.addAttribute("pp", pp);
+ 		
+ 		// 검색
+ 		model.addAttribute("search", product.getSearch());
+ 		model.addAttribute("keyword", product.getKeyword());
+ 		
+ 		return "product/productsearchlist";
+ 	}
+ 	
 
 }

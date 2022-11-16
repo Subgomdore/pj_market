@@ -18,6 +18,7 @@ public class ProductServiceImpl implements ProductService {
 
     int result = productdao.insertProduct(product);
 
+
     return result;
   }
 
@@ -78,4 +79,11 @@ public class ProductServiceImpl implements ProductService {
     System.out.println("get product list");
     return productdao.getProductlist();
   }
+
+	public int getTotalMain(Product product) {
+		return productdao.getTotalMain(product);
+	}
+	
+	
+
 }

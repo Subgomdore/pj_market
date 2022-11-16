@@ -6,6 +6,7 @@ import pjmarket.model.Product;
 
 public interface ProductService {
 
+
   int insertProduct(Product product) throws Exception;
 
   int getListCount(String product_l) throws Exception;
@@ -25,5 +26,6 @@ public interface ProductService {
   int updateProduct(Product product) throws Exception;
 
   List<Product> getProductlist() throws Exception;
+
 
 }
