@@ -174,7 +174,7 @@ public class ProductController {
 		model.addAttribute("productlist", productlist);
 
 		return "main/product_list";
-	}
+	} 
 
 	@RequestMapping("productdetail.do")
 	public String getProductDetail(int product_num, int page, Model model) {
