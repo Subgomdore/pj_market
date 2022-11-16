@@ -61,6 +61,7 @@
 			</c:forEach>
 		</div>
 	</div>
+
 </section>
 <%@ include file="../fix/footer.jsp"%>
 <script src="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.js"></script>
