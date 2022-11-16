@@ -31,7 +31,7 @@ public class ProductController {
   private QnaServiceImpl qs;
 
   // 상품등록 폼이동
-  @RequestMapping("insertproductform.do")
+  @RequestMapping("insertproductform.do" )
   public String insertProductForm() {
     return "main/product_insert";
   }
