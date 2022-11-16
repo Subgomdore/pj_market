@@ -40,7 +40,7 @@ uri="http://java.sun.com/jsp/jstl/core" %> <%@ page isELIgnored="false"%>
           />
         </div>
 
-			<!-- <div class="center-box-pj">
+			<div class="center-box-pj">
 				<div class="input-box-pj">
 					<button id="search-button-pj">
 						<i class="fa-solid fa-magnifying-glass fa-3x"></i>
@@ -48,30 +48,6 @@ uri="http://java.sun.com/jsp/jstl/core" %> <%@ page isELIgnored="false"%>
 					<input id="search-bar-pj" type="text" placeholder=" Search" />
 				</div>
 			</div>
-			 -->
-			
-<!-- ----------------------------------------------------------------------------------------------------------------------------------------------------- -->			
-						<form action="${path}/productsearch.do?pageNum=1">
-						<div class="center-box-pj">
-						<div class="input-box-pj">
-						<input type=hidden name="search" value="product_name">
-						<button id="search-button-pj">
-						<i class="fa-solid fa-magnifying-glass fa-3x"></i>
-						</button>
-						<table>
-								<tr>
-									<td><input type=text name="keyword" class="input-box-pj" autocomplete="on"></td>
-									<td><input type = "image" src = "${path }/images/dot_icon.gif" ></td>
-								</tr>
-						</table>
-						</div>
-						</div>
-						</form>
-<!-- ----------------------------------------------------------------------------------------------------------------------------------------------------- -->			
-			
-			
-			
-			
 			<div class="login-box-pj">
 				<div class="login-pj">
 					<c:if test="${sessionScope.member_id==null}">

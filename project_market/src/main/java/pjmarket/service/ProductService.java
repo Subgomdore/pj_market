@@ -14,4 +14,7 @@ public interface ProductService {
 	List<Product> getProductlist(int page, String product_l) throws Exception;
 	
 	Product getProductDetail(int product_num);
+	
+	public int getTotalMain(Product product);
+	
 }

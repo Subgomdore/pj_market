@@ -16,10 +16,12 @@
 	<tr><th>작성자명</th>
 		<td><input type=text name="off_name" required="required"
 		value =${off_update.off_name } autofocus="autofocus"></td>
-	</tr>
+		
+	<!-- </tr>
 	<tr><th>비밀번호</th>
 		<td><input type=password name="off_pw" required="required"></td>
-	</tr>
+	</tr> -->
+	
 	<tr><th>제목</th>
 		<td><input type=text name="off_subject" required="required"
 		value = "${off_update.off_subject }"></td>

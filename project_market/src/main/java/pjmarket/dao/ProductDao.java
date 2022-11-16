@@ -10,7 +10,10 @@ public interface ProductDao {
 	
 	int getProductCount(String product_l) throws Exception;
 
+	Product getProductDetail(int product_num);
+	
 	List<Product> getProductlist(int page, String product_l) throws Exception;
 	
-	Product getProductDetail(int product_num);
+	public int getTotalMain(Product product);
+	
 }

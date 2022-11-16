@@ -56,5 +56,9 @@ public class ProductDaoImpl implements ProductDao{
 		System.out.println("product detail dao start");
 		return (Product)sqlSession.selectOne("productns.product_detail", product_num);
 	}
+
+	public int getTotalMain(Product product) {
+		return sqlSession.selectOne("productns.getTotalMain", product);
+	}
 	
 }

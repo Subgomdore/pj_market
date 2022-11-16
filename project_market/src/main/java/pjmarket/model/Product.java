@@ -12,6 +12,16 @@ public class Product {
 	private String product_img;
 	private int product_stock;
 	
+		// page
+		private int startRow;
+		private int endRow;
+		
+		// 검색
+		private String search;
+		private String keyword;
+	
+	
+	
 	public int getProduct_num() {
 		return product_num;
 	}
@@ -66,6 +76,30 @@ public class Product {
 	}
 	public void setProduct_stock(int product_stock) {
 		this.product_stock = product_stock;
+	}
+	public int getStartRow() {
+		return startRow;
+	}
+	public void setStartRow(int startRow) {
+		this.startRow = startRow;
+	}
+	public int getEndRow() {
+		return endRow;
+	}
+	public void setEndRow(int endRow) {
+		this.endRow = endRow;
+	}
+	public String getSearch() {
+		return search;
+	}
+	public void setSearch(String search) {
+		this.search = search;
+	}
+	public String getKeyword() {
+		return keyword;
+	}
+	public void setKeyword(String keyword) {
+		this.keyword = keyword;
 	}
 
 	

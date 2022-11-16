@@ -44,6 +44,10 @@ public class ProductServiceImpl implements ProductService{
 		System.out.println("product detail service start");		
 		return productdao.getProductDetail(product_num);
 	}
+
+	public int getTotalMain(Product product) {
+		return productdao.getTotalMain(product);
+	}
 	
 	
 }
