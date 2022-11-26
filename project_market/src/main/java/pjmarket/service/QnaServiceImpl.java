@@ -12,11 +12,11 @@ import pjmarket.model.Product;
 import pjmarket.model.QnaBoard;
 
 @Service
-public class QnaServiceImpl implements QnaService{
+public class QnaServiceImpl implements QnaService {
 
-	@Autowired 
+	@Autowired
 	private QnaDaoImpl qnadao;
-	
+
 	@Override
 	public int QnaInsert(QnaBoard qnaboard) {
 		return qnadao.QnaInsert(qnaboard);
@@ -29,29 +29,29 @@ public class QnaServiceImpl implements QnaService{
 
 	@Override
 	public List<QnaBoard> getBoardList(int product_num, int page) {
-		return qnadao.getBoardList(product_num,page);
+		return qnadao.getBoardList(product_num, page);
 	}
-	
+
 	@Override
 	public QnaBoard QnaUpdate(int qna_no) {
 		return qnadao.getMember(qna_no);
 	}
-	
+
 	@Override
 	public int QnaUpdateok(QnaBoard qnaboard) {
 		return qnadao.UpdateQna(qnaboard);
 	}
-	
+
 	@Override
 	public int QnaDelete(QnaBoard qnaboard) {
 		return qnadao.DeleteQna(qnaboard);
 	}
-	
+
 	@Override
 	public Product getProduct(int product_num) {
 		return qnadao.getProduct(product_num);
 	}
-	
+
 	@Override
 	public QnaBoard TestController() {
 		return qnadao.TestController();

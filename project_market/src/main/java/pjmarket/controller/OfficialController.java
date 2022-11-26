@@ -27,7 +27,6 @@ public class OfficialController {
 
     int result = os.insert(off);
     if (result == 1)
-      System.out.println("글작성 성공");
 
     model.addAttribute("result", result);
 
@@ -49,10 +48,8 @@ public class OfficialController {
     int endRow = page * limit;
 
     int listcount = os.getCount(); // 총 데이터 갯수
-    System.out.println("listcount:" + listcount);
 
     List<OfficialBoard> off_list = os.getoff_list(page);
-    System.out.println("off_list:" + off_list);
 
     // 총페이지
     int pageCount = listcount / limit + ((listcount % limit == 0) ? 0 : 1);
@@ -105,12 +102,7 @@ public class OfficialController {
   public String off_update(OfficialBoard off, String page, Model model) {
     int result = 0;
 
-    System.out.println("hi");
-    System.out.println("result1 " + result);
     OfficialBoard old = os.getOfficialBoard(off.getOff_num()); // 상세정보 구하기
-    System.out.println("old pw " + old.getOff_pw());
-    System.out.println("new pw " + off.getOff_pw());
-    System.out.println("result2 " + result);
 
     // 비밀번호 비교문
     if (old.getOff_pw().equals(off.getOff_pw())) { // 비밀번호 일치
@@ -119,13 +111,10 @@ public class OfficialController {
     } else { // 비밀번호 불일치
       result = -1;
     }
-    System.out.println("result3 " + result);
 
     model.addAttribute("result", result);
     model.addAttribute("off_update", off);
     model.addAttribute("page", page);
-
-    System.out.println("result4 " + result);
 
     return "Official/off_updateresult";
   }

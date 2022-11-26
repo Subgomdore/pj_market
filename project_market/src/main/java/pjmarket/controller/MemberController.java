@@ -51,7 +51,6 @@ public class MemberController {
 		MemberDTO DTO = ms.UserCheck(member_id);
 
 		if (DTO == null) { // 없는 회원
-			System.out.println("없는 회원인증 데이터 DB에서 넘어옴");
 			result = 1;
 			model.addAttribute("result", result);
 
@@ -61,7 +60,6 @@ public class MemberController {
 			if (DTO.getMember_pw().equals(member_pw)) {
 				session.setAttribute("member_id", DTO.getMember_id()); // 비번 일치시
 				session.setAttribute("member_pw", DTO.getMember_pw());
-				System.out.println("있는 회원인증 데이터 DB에서 넘어옴");
 			} else { // 비번 불일치시
 				result = 2;
 				model.addAttribute("result", result);
@@ -81,8 +79,6 @@ public class MemberController {
 	// ID중복검사
 	@RequestMapping("member_idcheck.do")
 	public String Member_Idcheck(String member_id, Model model) throws Exception {
-		System.out.println("아이디 중복체크하러 id 넘어옴");
-		System.out.println("id:" + member_id);
 
 		int result = ms.CheckMemberID(member_id);
 		model.addAttribute("result", result);
@@ -153,7 +149,6 @@ public class MemberController {
 		model.addAttribute("d_id", member_id);
 		model.addAttribute("d_name", md.getMember_name());
 
-		System.out.println("model값:" + model);
 		return "/member/member_delete";
 	}
 

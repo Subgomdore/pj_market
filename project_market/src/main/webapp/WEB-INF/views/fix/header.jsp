@@ -81,6 +81,11 @@
 							<a href="listlike.do">찜목록</a> <a href="listcart.do">장바구니</a> <a href="#">내정보수정</a>
 						</div>
 					</div></li>
+					
+				<li>
+					<div class="menu-box-pj active">
+						<a class="dropbtn-pj" href="https://github.com/Subgomdore/pj_market">GitHub링크</a>
+					</div></li>
 
 			<c:if test="${member_id eq 'admin'}">
 				<li><div class="dropdown-pj menu-box-pj">

@@ -14,32 +14,25 @@ public class CartServiceImpl implements CartService {
 
 	@Autowired
 	private CartDaoImpl cartdao;
-	
-	
+
 	@Override
-	public List<CartList> getListCart(String member_id) throws Exception{
-		System.out.println("getListCart Service");
+	public List<CartList> getListCart(String member_id) throws Exception {
 		return cartdao.getListCart(member_id);
 	}
-	
+
 	@Override
-	public int insertCart(int likes_num) throws Exception{
-		System.out.println("insertCart service 진입 일루와야함");
-		
+	public int insertCart(int likes_num) throws Exception {
 		return cartdao.insertCart(likes_num);
 	}
-	
+
 	@Override
-	public int insertCart(Cart cart) throws Exception{
-		System.out.println("insert Cart service 진입");
+	public int insertCart(Cart cart) throws Exception {
 		return cartdao.insertCart(cart);
 	}
-	
+
 	@Override
-	public int deleteCart(int cart_num) throws Exception{
-		System.out.println("deleteCart service 진입");
-		
+	public int deleteCart(int cart_num) throws Exception {
 		return cartdao.deleteCart(cart_num);
 	}
-	
+
 }

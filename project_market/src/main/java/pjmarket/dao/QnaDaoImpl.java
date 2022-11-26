@@ -31,15 +31,13 @@ public class QnaDaoImpl implements QnaDao {
 	// 게시글 수 조회
 	@Override
 	public int getListCount(int product_num) {
-		return session.selectOne("qnans.qna_count",product_num);
+		return session.selectOne("qnans.qna_count", product_num);
 	}
 
 	// 게시글리스트조회
 	@Override
 	public List<QnaBoard> getBoardList(int product_num, int page) {
 		HashMap<String, Object> map = new HashMap<String, Object>();
-		System.out.println("List product_num"+product_num);
-		System.out.println("List page"+page);
 		map.put("product_num", product_num);
 		map.put("page", page);
 
@@ -66,7 +64,7 @@ public class QnaDaoImpl implements QnaDao {
 		int result = -1;
 		int qna_re = qnaboard.getQna_re();
 		int qna_group = qnaboard.getQna_group();
-		
+
 		if (qna_re == 0) { // 사용자일경우
 			result = session.delete("qnans.qna_userdelete", qna_group);
 		} else { // 관리자일경우
@@ -74,11 +72,11 @@ public class QnaDaoImpl implements QnaDao {
 		}
 		return result;
 	}
-	
+
 	// product_detail 페이지에서 로드된 qna_boardlist에서 작동하는메소드
-	@Override 
+	@Override
 	public Product getProduct(int product_num) {
-		return session.selectOne("qnans.product_select", product_num );
+		return session.selectOne("qnans.product_select", product_num);
 	}
 
 	@Override

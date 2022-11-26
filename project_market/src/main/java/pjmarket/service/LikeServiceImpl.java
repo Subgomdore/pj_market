@@ -9,28 +9,23 @@ import pjmarket.dao.LikeDaoImpl;
 import pjmarket.model.LikeList;
 
 @Service
-public class LikeServiceImpl implements LikeService  {
+public class LikeServiceImpl implements LikeService {
 
 	@Autowired
 	private LikeDaoImpl likedao;
 
 	@Override
-	public List<LikeList> getLikeList(String member_id) throws Exception{
-		// TODO Auto-generated method stub
-		System.out.println("like_list Service 진입");
+	public List<LikeList> getLikeList(String member_id) throws Exception {
 		return likedao.getLikeList(member_id);
 	}
-	
+
 	@Override
-	public int deleteLikes(int likes_num) throws Exception{
-		System.out.println("deleteLikes service 진입");
-		
+	public int deleteLikes(int likes_num) throws Exception {
 		return likedao.deleteLikes(likes_num);
 	}
-	
+
 	@Override
 	public int insertLike(int product_num, int options_num, String member_id) {
-		System.out.println("insert Like service");
 		return likedao.insertLike(product_num, options_num, member_id);
 	}
 }

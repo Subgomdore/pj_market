@@ -25,7 +25,6 @@ public class ReviewDaoImpl implements ReviewDao {
 	// 게시판에저장 //
 	@Override
 	public int ReviewInsert(Review review) throws Exception {
-		System.out.println("review_insert.jsp------------");
 
 		return session.insert("reviewns.review_insertresult", review);
 	}
@@ -39,14 +38,11 @@ public class ReviewDaoImpl implements ReviewDao {
 	@Override
 	public List<Review> getBoardList(int page, int product_num) {
 		HashMap<String, Object> map = new HashMap<String, Object>();
-		System.out.println("page: "+ page);
-		System.out.println("product_num: "+product_num);
 		map.put("page", page);
 		map.put("product_num", product_num);
-		
-		List<Review> list = session.selectList("reviewns.review_boardlist",map);
-		System.out.println(list.size());
-		
+
+		List<Review> list = session.selectList("reviewns.review_boardlist", map);
+
 		return list;
 	}
 
@@ -64,7 +60,6 @@ public class ReviewDaoImpl implements ReviewDao {
 	}
 
 	public int Updatereview(Review review) {
-		System.out.println("review_updateresult");
 		int result = session.update("reviewns.review_update", review);
 		return result;
 	}
@@ -75,12 +70,8 @@ public class ReviewDaoImpl implements ReviewDao {
 	}
 
 	public int ReviewDeleteOk(Review review) {
-		System.out.println("ReviewDeleteOk");
 		int result = session.update("reviewns.review_delete", review);
 		return result;
 	}
-
-
-
 
 }

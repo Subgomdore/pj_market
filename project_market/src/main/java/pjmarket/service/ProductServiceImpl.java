@@ -9,73 +9,58 @@ import pjmarket.model.Product;
 @Service
 public class ProductServiceImpl implements ProductService {
 
-  @Autowired
-  private ProductDaoImpl productdao;
+	@Autowired
+	private ProductDaoImpl productdao;
 
-  @Override
-  public int insertProduct(Product product) throws Exception {
-    System.out.println("insertProduct Service 진입");
+	@Override
+	public int insertProduct(Product product) throws Exception {
+		int result = productdao.insertProduct(product);
+		return result;
+	}
 
-    int result = productdao.insertProduct(product);
+	@Override
+	public int getListCount(String product_l) throws Exception {
+		return productdao.getProductCount(product_l);
 
-    return result;
-  }
+	}
 
-  @Override
-  public int getListCount(String product_l) throws Exception {
-    System.out.println("카테고리 상품 갯수 검색 service 진입");
-    System.out.println("service product_l 확인 : " + product_l);
+	@Override
+	public List<Product> getProductlist(int page, String product_l) throws Exception {
+		return productdao.getProductlist(page, product_l);
+	}
 
-    return productdao.getProductCount(product_l);
+	@Override
+	public Product getProductDetail(int product_num) throws Exception {
+		return productdao.getProductDetail(product_num);
+	}
 
-  }
+	@Override
+	public List<Product> searchProduct(String product_name) throws Exception {
+		return productdao.searchProduct(product_name);
+	}
 
-  @Override
-  public List<Product> getProductlist(int page, String product_l) throws Exception {
+	@Override
+	public int searchCount(String product_name) throws Exception {
+		return productdao.searchCount(product_name);
+	}
 
-    return productdao.getProductlist(page, product_l);
+	@Override
+	public Integer selectProductStar(int product_num) throws Exception {
+		return productdao.selectProductStar(product_num);
+	}
 
-  }
+	@Override
+	public Integer selectProductStarCount(int product_num) throws Exception {
+		return productdao.selectProductStarCount(product_num);
+	}
 
-  @Override
-  public Product getProductDetail(int product_num) throws Exception {
-    System.out.println("product detail service start");
-    return productdao.getProductDetail(product_num);
-  }
+	@Override
+	public int updateProduct(Product product) throws Exception {
+		return productdao.updateProduct(product);
+	}
 
-  @Override
-  public List<Product> searchProduct(String product_name) throws Exception {
-    System.out.println("search product service start");
-    return productdao.searchProduct(product_name);
-  }
-
-  @Override
-  public int searchCount(String product_name) throws Exception {
-    System.out.println("search count service start");
-    return productdao.searchCount(product_name);
-  }
-
-  @Override
-  public Integer selectProductStar(int product_num) throws Exception {
-    System.out.println("select product star service");
-    return productdao.selectProductStar(product_num);
-  }
-
-  @Override
-  public Integer selectProductStarCount(int product_num) throws Exception {
-    System.out.println("select product star count service");
-    return productdao.selectProductStarCount(product_num);
-  }
-
-  @Override
-  public int updateProduct(Product product) throws Exception {
-    System.out.println("updated product service");
-    return productdao.updateProduct(product);
-  }
-
-  @Override
-  public List<Product> getProductlist() throws Exception {
-    System.out.println("get product list");
-    return productdao.getProductlist();
-  }
+	@Override
+	public List<Product> getProductlist() throws Exception {
+		return productdao.getProductlist();
+	}
 }

@@ -2,10 +2,8 @@ package pjmarket.service;
 
 import java.util.List;
 
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 
 import pjmarket.dao.ReviewDaoImpl;
 import pjmarket.model.Product;
@@ -31,8 +29,7 @@ public class ReviewServiceImpl implements ReviewService {
 
 	@Override
 	public List<Review> getBoardList(int page, int product_num) {
-		System.out.println("services page: " +page);
-		return reviewdao.getBoardList(page,product_num);
+		return reviewdao.getBoardList(page, product_num);
 	}
 
 	public Product getProductNum(int product_num) throws Exception {
@@ -55,7 +52,6 @@ public class ReviewServiceImpl implements ReviewService {
 	}
 
 	public int ReviewUpdateok(Review review) {
-		System.out.println("review_updateresult");
 		return reviewdao.Updatereview(review);
 	}
 
@@ -64,9 +60,7 @@ public class ReviewServiceImpl implements ReviewService {
 	}
 
 	public int ReviewDeleteOk(Review review) {
-		System.out.println("ReviewDeleteOk");
 		return reviewdao.ReviewDeleteOk(review);
 	}
-
 
 }

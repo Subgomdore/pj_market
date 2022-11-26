@@ -21,559 +21,464 @@ import pjmarket.service.QnaServiceImpl;
 @Controller
 public class ProductController {
 
-  @Autowired
-  private ProductServiceImpl ps;
+	@Autowired
+	private ProductServiceImpl ps;
 
-  @Autowired
-  private OptionsServiceImpl os;
+	@Autowired
+	private OptionsServiceImpl os;
 
-  @Autowired
-  private QnaServiceImpl qs;
+	@Autowired
+	private QnaServiceImpl qs;
 
-  // 상품등록 폼이동
-  @RequestMapping("insertproductform.do")
-  public String insertProductForm() {
-    return "main/product_insert";
-  }
+	// 상품등록 폼이동
+	@RequestMapping("insertproductform.do")
+	public String insertProductForm() {
+		return "main/product_insert";
+	}
 
-  // 상품등록
-  @RequestMapping("insert_product.do")
-  public String insertProduct(@RequestParam("product_img1") List<MultipartFile> mtlist,
-      @RequestParam("product_content1") List<MultipartFile> mtlist2, Product product,
-      HttpServletRequest request, Model model) throws Exception {
+	// 상품등록
+	@RequestMapping("insert_product.do")
+	public String insertProduct(@RequestParam("product_img1") List<MultipartFile> mtlist,
+			@RequestParam("product_content1") List<MultipartFile> mtlist2, Product product, HttpServletRequest request,
+			Model model) throws Exception {
 
-    String path = request.getRealPath("/resources/upload/");
+		String path = request.getRealPath("/resources/upload/");
 
-    String imgsave_name = "";
+		String imgsave_name = "";
 
-    for (int i = 0; i < mtlist.size(); i++) {
+		for (int i = 0; i < mtlist.size(); i++) {
 
-      String filename = mtlist.get(i).getOriginalFilename();
+			String filename = mtlist.get(i).getOriginalFilename();
 
-      int size = (int) mtlist.get(i).getSize(); // 첨부파일의 크기 (단위:Byte)
+			int size = (int) mtlist.get(i).getSize(); // 첨부파일의 크기 (단위:Byte)
 
-      System.out.println("filename=" + filename); // filename="Koala.jpg"
-      System.out.println("size=" + size);
-      System.out.println("Path=" + path);
-      int result = 0;
+			int result = 0;
 
-      String file[] = new String[2];
+			String file[] = new String[2];
 
-      String newfilename = "";
+			String newfilename = "";
 
-      if (filename != "") { // 첨부파일이 전송된 경우
+			if (filename != "") { // 첨부파일이 전송된 경우
 
-        // 파일 중복문제 해결
-        String extension = filename.substring(filename.lastIndexOf("."), filename.length());
-        System.out.println("extension:" + extension);
+				// 파일 중복문제 해결
+				String extension = filename.substring(filename.lastIndexOf("."), filename.length());
 
-        UUID uuid = UUID.randomUUID();
+				UUID uuid = UUID.randomUUID();
 
-        newfilename = uuid.toString() + extension;
-        System.out.println("newfilename:" + newfilename);
+				newfilename = uuid.toString() + extension;
 
-        StringTokenizer st = new StringTokenizer(filename, ".");
-        file[0] = st.nextToken(); // 파일명 Koala
-        file[1] = st.nextToken(); // 확장자 jpg
+				StringTokenizer st = new StringTokenizer(filename, ".");
+				file[0] = st.nextToken(); // 파일명 Koala
+				file[1] = st.nextToken(); // 확장자 jpg
 
-        if (size > 10000000) { // 100KB
-          result = 2;
-          model.addAttribute("result", result);
+				if (size > 10000000) { // 100KB
+					result = 2;
+					model.addAttribute("result", result);
 
-          return "main/uploadResult";
+					return "main/uploadResult";
 
-        } else if (!file[1].equals("jpg") && !file[1].equals("gif") && !file[1].equals("png")) {
+				} else if (!file[1].equals("jpg") && !file[1].equals("gif") && !file[1].equals("png")) {
 
-          result = 3;
-          model.addAttribute("result", result);
+					result = 3;
+					model.addAttribute("result", result);
 
-          return "main/uploadResult";
-        }
+					return "main/uploadResult";
+				}
 
-      }
-      if (size > 0) { // 첨부파일이 전송된 경우
+			}
+			if (size > 0) { // 첨부파일이 전송된 경우
 
-        mtlist.get(i).transferTo(new File(path + "/" + newfilename));
+				mtlist.get(i).transferTo(new File(path + "/" + newfilename));
 
-        imgsave_name += "," + newfilename;
+				imgsave_name += "," + newfilename;
 
-      }
+			}
 
+		}
 
-    }
+		product.setProduct_img(imgsave_name);
 
-    product.setProduct_img(imgsave_name);
+		String contentsave_name = "";
 
+		for (int i = 0; i < mtlist2.size(); i++) {
 
-    String contentsave_name = "";
+			String filename = mtlist2.get(i).getOriginalFilename();
 
-    for (int i = 0; i < mtlist2.size(); i++) {
+			int size = (int) mtlist2.get(i).getSize(); // 첨부파일의 크기 (단위:Byte)
 
-      String filename = mtlist2.get(i).getOriginalFilename();
+			int result = 0;
 
-      int size = (int) mtlist2.get(i).getSize(); // 첨부파일의 크기 (단위:Byte)
+			String file[] = new String[2];
 
-      System.out.println("filename=" + filename); // filename="Koala.jpg"
-      System.out.println("size=" + size);
-      System.out.println("Path=" + path);
-      int result = 0;
+			String newfilename = "";
 
-      String file[] = new String[2];
+			if (filename != "") { // 첨부파일이 전송된 경우
 
-      String newfilename = "";
+				// 파일 중복문제 해결
+				String extension = filename.substring(filename.lastIndexOf("."), filename.length());
 
-      if (filename != "") { // 첨부파일이 전송된 경우
+				UUID uuid = UUID.randomUUID();
 
-        // 파일 중복문제 해결
-        String extension = filename.substring(filename.lastIndexOf("."), filename.length());
-        System.out.println("extension:" + extension);
+				newfilename = uuid.toString() + extension;
 
-        UUID uuid = UUID.randomUUID();
+				StringTokenizer st = new StringTokenizer(filename, ".");
+				file[0] = st.nextToken(); // 파일명 Koala
+				file[1] = st.nextToken(); // 확장자 jpg
 
-        newfilename = uuid.toString() + extension;
-        System.out.println("newfilename:" + newfilename);
+				if (size > 10000000) { // 100KB
+					result = 2;
+					model.addAttribute("result", result);
 
-        StringTokenizer st = new StringTokenizer(filename, ".");
-        file[0] = st.nextToken(); // 파일명 Koala
-        file[1] = st.nextToken(); // 확장자 jpg
+					return "main/uploadResult";
 
-        if (size > 10000000) { // 100KB
-          result = 2;
-          model.addAttribute("result", result);
+				} else if (!file[1].equals("jpg") && !file[1].equals("gif") && !file[1].equals("png")) {
 
-          return "main/uploadResult";
+					result = 3;
+					model.addAttribute("result", result);
 
-        } else if (!file[1].equals("jpg") && !file[1].equals("gif") && !file[1].equals("png")) {
+					return "main/uploadResult";
+				}
 
-          result = 3;
-          model.addAttribute("result", result);
+			}
+			if (size > 0) { // 첨부파일이 전송된 경우
 
-          return "main/uploadResult";
-        }
+				mtlist2.get(i).transferTo(new File(path + "/" + newfilename));
 
-      }
-      if (size > 0) { // 첨부파일이 전송된 경우
+				contentsave_name += "," + newfilename;
 
-        mtlist2.get(i).transferTo(new File(path + "/" + newfilename));
+			}
 
-        contentsave_name += "," + newfilename;
+		}
 
-      }
+		product.setProduct_content(contentsave_name);
 
+		// product를 등록하고 num을 반환 받아 옵션 등록 할때 사용
+		int result = ps.insertProduct(product);
 
-    }
+		int product_num = product.getProduct_num();
 
-    product.setProduct_content(contentsave_name);
+		int i = 1;
 
+		while (request.getParameter("options_name" + i) != null) {
 
-    // product를 등록하고 num을 반환 받아 옵션 등록 할때 사용
-    int result = ps.insertProduct(product);
+			String options_name = (String) request.getParameter("options_name" + i);
+			int options_price = Integer.parseInt(request.getParameter("options_price" + i));
+			int options_sale = Integer.parseInt(request.getParameter("options_sale" + i));
 
-    int product_num = product.getProduct_num();
-    System.out.println("product_num 확인" + product_num);
+			result = os.insertOptions(options_name, options_price, options_sale, product_num);
+			i++;
+		}
 
-    int i = 1;
+		model.addAttribute("result", result);
 
-    while (request.getParameter("options_name" + i) != null) {
+		return "main/uploadResult";
+	}
 
-      String options_name = (String) request.getParameter("options_name" + i);
-      int options_price = Integer.parseInt(request.getParameter("options_price" + i));
-      int options_sale = Integer.parseInt(request.getParameter("options_sale" + i));
+	// 카테고리별 품목 리스트 출력
+	@RequestMapping("productlist.do")
+	public String list(@RequestParam("product_l") String product_l, HttpServletRequest request, Model model)
+			throws Exception {
 
-      System.out.println(i + "번째 옵션 등록 시작");
+		List<Product> productlist = new ArrayList<Product>();
 
-      result = os.insertOptions(options_name, options_price, options_sale, product_num);
+		int page = 1;
+		int limit = 12; // 한 화면에 출력할 레코드수
 
-      if (result == 1) {
-        System.out.println(i + "번째 옵션 등록 완료");
-      } else {
-        System.out.println(i + "번째 옵션 등록 실패");
-      }
+		if (request.getParameter("page") != null) {
+			page = Integer.parseInt(request.getParameter("page"));
+		}
 
-      i++;
-    }
+		// 총 리스트 수를 받아옴.
+		int listcount = ps.getListCount(product_l);
 
-    model.addAttribute("result", result);
+		// 페이지 번호(page)를 DAO클래스에게 전달한다.
+		productlist = ps.getProductlist(page, product_l); // 리스트를 받아옴.
 
-    return "main/uploadResult";
-  }
+		// 총 페이지 수.
+		int maxpage = (int) ((double) listcount / limit + 0.95); // 0.95를 더해서 올림
+																	// 처리.
+		// 현재 페이지에 보여줄 시작 페이지 수(1, 11, 21 등...)
+		int startpage = (((int) ((double) page / 12 + 0.95)) - 1) * 16 + 1;
+		// 현재 페이지에 보여줄 마지막 페이지 수.(10, 20, 30 등...)
+		int endpage = maxpage;
 
-  // 카테고리별 품목 리스트 출력
-  @RequestMapping("productlist.do")
-  public String list(@RequestParam("product_l") String product_l, HttpServletRequest request,
-      Model model) throws Exception {
-    System.out.println("카테고리별 상품 검색 controller");
+		if (endpage > startpage + 16 - 1)
+			endpage = startpage + 16 - 1;
 
-    List<Product> productlist = new ArrayList<Product>();
+		model.addAttribute("page", page);
+		model.addAttribute("product_l", product_l);
+		model.addAttribute("startpage", startpage);
+		model.addAttribute("endpage", endpage);
+		model.addAttribute("maxpage", maxpage);
+		model.addAttribute("listcount", listcount);
+		model.addAttribute("productlist", productlist);
 
-    int page = 1;
-    int limit = 12; // 한 화면에 출력할 레코드수
+		return "main/product_list";
+	}
 
-    if (request.getParameter("page") != null) {
-      page = Integer.parseInt(request.getParameter("page"));
-    }
+	@RequestMapping("productdetail.do")
+	public String getProductDetail(int product_num, int page, Model model) throws Exception {
 
-    // 총 리스트 수를 받아옴.
-    System.out.println("product_l : " + product_l + "을 가지고 해당 카테고리 상품수 검색 시작 controller");
-    int listcount = ps.getListCount(product_l);
-    System.out.println("DB에서 받아온 해당 상품 controller 갯수 확인 : " + listcount);
+		// List<QnaBoard> boardlist = new ArrayList<QnaBoard>();
+		Product product = ps.getProductDetail(product_num);
 
-    // 페이지 번호(page)를 DAO클래스에게 전달한다.
-    productlist = ps.getProductlist(page, product_l); // 리스트를 받아옴.
+		Integer product_star = ps.selectProductStar(product_num);
 
-    // 총 페이지 수.
-    int maxpage = (int) ((double) listcount / limit + 0.95); // 0.95를 더해서 올림
-                                                             // 처리.
-    // 현재 페이지에 보여줄 시작 페이지 수(1, 11, 21 등...)
-    int startpage = (((int) ((double) page / 12 + 0.95)) - 1) * 16 + 1;
-    // 현재 페이지에 보여줄 마지막 페이지 수.(10, 20, 30 등...)
-    int endpage = maxpage;
+		Integer product_starcount = ps.selectProductStarCount(product_num);
 
-    if (endpage > startpage + 16 - 1)
-      endpage = startpage + 16 - 1;
+		// 상품 이미지랑 내용 이미지 파싱하여 분류
+		String product_content = product.getProduct_content();
 
-    model.addAttribute("page", page);
-    model.addAttribute("product_l", product_l);
-    model.addAttribute("startpage", startpage);
-    model.addAttribute("endpage", endpage);
-    model.addAttribute("maxpage", maxpage);
-    model.addAttribute("listcount", listcount);
-    model.addAttribute("productlist", productlist);
+		String[] product_contentArr = product_content.split(",");
 
-    return "main/product_list";
-  }
+		String product_img = product.getProduct_img();
 
-  @RequestMapping("productdetail.do")
-  public String getProductDetail(int product_num, int page, Model model) throws Exception {
+		String[] product_imgArr = product_img.split(",");
 
-    // List<QnaBoard> boardlist = new ArrayList<QnaBoard>();
-    Product product = ps.getProductDetail(product_num);
+		List<Options> optionslist = new ArrayList<Options>();
+		optionslist = os.getOptionList(product_num);
 
-    Integer product_star = ps.selectProductStar(product_num);
+		model.addAttribute("product", product);
+		model.addAttribute("optionslist", optionslist);
+		model.addAttribute("product_contentArr", product_contentArr);
+		model.addAttribute("product_imgArr", product_imgArr);
+		model.addAttribute("page", page);
+		model.addAttribute("product_star", product_star);
+		model.addAttribute("product_starcount", product_starcount);
 
-    Integer product_starcount = ps.selectProductStarCount(product_num);
+		return "main/product_detail";
+	}
 
-    // 상품 이미지랑 내용 이미지 파싱하여 분류
-    String product_content = product.getProduct_content();
-    System.out.println(product_content);
+	@RequestMapping("searchproductform.do")
+	public String searchProductForm() {
+		return "main/product_search";
+	}
 
-    String[] product_contentArr = product_content.split(",");
+	@RequestMapping("search_product.do")
+	public String searchProduct(String product_name, Model model) throws Exception {
 
+		List<Product> searchlist = new ArrayList<Product>();
 
-    String product_img = product.getProduct_img();
-    System.out.println(product_img);
+		searchlist = ps.searchProduct(product_name);
+		int count = ps.searchCount(product_name);
 
-    String[] product_imgArr = product_img.split(",");
+		model.addAttribute("searchlist", searchlist);
+		model.addAttribute("count", count);
 
+		return "main/product_searchlist";
+	}
 
-    List<Options> optionslist = new ArrayList<Options>();
-    optionslist = os.getOptionList(product_num);
+	@RequestMapping("product_update_form.do")
+	public String updateProductForm(int product_num, Model model) throws Exception {
 
-    model.addAttribute("product", product);
-    model.addAttribute("optionslist", optionslist);
-    model.addAttribute("product_contentArr", product_contentArr);
-    model.addAttribute("product_imgArr", product_imgArr);
-    model.addAttribute("page", page);
-    model.addAttribute("product_star", product_star);
-    model.addAttribute("product_starcount", product_starcount);
+		Product product = ps.getProductDetail(product_num);
 
+		List<Options> optionslist = os.getOptionList(product_num);
 
-    return "main/product_detail";
-  }
+		int optionscount = os.countOpions(product_num);
 
-  @RequestMapping("searchproductform.do")
-  public String searchProductForm() {
-    return "main/product_search";
-  }
+		model.addAttribute("product", product);
+		model.addAttribute("optionslist", optionslist);
+		model.addAttribute("optionscount", optionscount);
 
-  @RequestMapping("search_product.do")
-  public String searchProduct(String product_name, Model model) throws Exception {
+		return "main/product_updateform";
+	}
 
-    List<Product> searchlist = new ArrayList<Product>();
+	// 상품 업데이트
+	@RequestMapping("update_product.do")
+	public String updateProduct(@RequestParam("product_img1") List<MultipartFile> mtlist,
+			@RequestParam("product_content1") List<MultipartFile> mtlist2, Product product, HttpServletRequest request,
+			Model model) throws Exception {
 
-    searchlist = ps.searchProduct(product_name);
-    int count = ps.searchCount(product_name);
+		String path = request.getRealPath("/resources/upload/");
 
-    model.addAttribute("searchlist", searchlist);
-    model.addAttribute("count", count);
+		String imgsave_name = "";
 
-    return "main/product_searchlist";
-  }
+		for (int i = 0; i < mtlist.size(); i++) {
 
-  @RequestMapping("product_update_form.do")
-  public String updateProductForm(int product_num, Model model) throws Exception {
+			String filename = mtlist.get(i).getOriginalFilename();
 
-    Product product = ps.getProductDetail(product_num);
+			int size = (int) mtlist.get(i).getSize(); // 첨부파일의 크기 (단위:Byte)
 
-    List<Options> optionslist = os.getOptionList(product_num);
+			int result = 0;
 
-    int optionscount = os.countOpions(product_num);
+			String file[] = new String[2];
 
-    model.addAttribute("product", product);
-    model.addAttribute("optionslist", optionslist);
-    model.addAttribute("optionscount", optionscount);
+			String newfilename = "";
 
-    return "main/product_updateform";
-  }
+			if (filename != "") { // 첨부파일이 전송된 경우
 
-  // 상품 업데이트
-  @RequestMapping("update_product.do")
-  public String updateProduct(@RequestParam("product_img1") List<MultipartFile> mtlist,
-      @RequestParam("product_content1") List<MultipartFile> mtlist2, Product product,
-      HttpServletRequest request, Model model) throws Exception {
+				// 파일 중복문제 해결
+				String extension = filename.substring(filename.lastIndexOf("."), filename.length());
 
-    String path = request.getRealPath("/resources/upload/");
+				UUID uuid = UUID.randomUUID();
 
-    String imgsave_name = "";
+				newfilename = uuid.toString() + extension;
 
-    for (int i = 0; i < mtlist.size(); i++) {
+				StringTokenizer st = new StringTokenizer(filename, ".");
+				file[0] = st.nextToken(); // 파일명 Koala
+				file[1] = st.nextToken(); // 확장자 jpg
 
-      String filename = mtlist.get(i).getOriginalFilename();
+				if (size > 10000000) { // 100KB
+					result = 2;
+					model.addAttribute("result", result);
 
-      int size = (int) mtlist.get(i).getSize(); // 첨부파일의 크기 (단위:Byte)
+					return "main/uploadResult";
 
-      System.out.println("filename=" + filename); // filename="Koala.jpg"
-      System.out.println("size=" + size);
-      System.out.println("Path=" + path);
-      int result = 0;
+				} else if (!file[1].equals("jpg") && !file[1].equals("gif") && !file[1].equals("png")) {
 
-      String file[] = new String[2];
+					result = 3;
+					model.addAttribute("result", result);
 
-      String newfilename = "";
+					return "main/uploadResult";
+				}
 
-      if (filename != "") { // 첨부파일이 전송된 경우
+			}
+			if (size > 0) { // 첨부파일이 전송된 경우
 
-        // 파일 중복문제 해결
-        String extension = filename.substring(filename.lastIndexOf("."), filename.length());
-        System.out.println("extension:" + extension);
+				mtlist.get(i).transferTo(new File(path + "/" + newfilename));
 
-        UUID uuid = UUID.randomUUID();
+				imgsave_name += "," + newfilename;
+				product.setProduct_img(imgsave_name);
 
-        newfilename = uuid.toString() + extension;
-        System.out.println("newfilename:" + newfilename);
+			} else {
 
-        StringTokenizer st = new StringTokenizer(filename, ".");
-        file[0] = st.nextToken(); // 파일명 Koala
-        file[1] = st.nextToken(); // 확장자 jpg
+				product.setProduct_img(product.getProduct_img());
 
-        if (size > 10000000) { // 100KB
-          result = 2;
-          model.addAttribute("result", result);
+			}
 
-          return "main/uploadResult";
+		}
 
-        } else if (!file[1].equals("jpg") && !file[1].equals("gif") && !file[1].equals("png")) {
+		String contentsave_name = "";
 
-          result = 3;
-          model.addAttribute("result", result);
+		for (int i = 0; i < mtlist2.size(); i++) {
+			String filename = mtlist2.get(i).getOriginalFilename();
+			int size = (int) mtlist2.get(i).getSize(); // 첨부파일의 크기 (단위:Byte)
+			int result = 0;
+			String file[] = new String[2];
+			String newfilename = "";
 
-          return "main/uploadResult";
-        }
+			if (filename != "") { // 첨부파일이 전송된 경우
 
-      }
-      if (size > 0) { // 첨부파일이 전송된 경우
+				// 파일 중복문제 해결
+				String extension = filename.substring(filename.lastIndexOf("."), filename.length());
 
-        mtlist.get(i).transferTo(new File(path + "/" + newfilename));
+				UUID uuid = UUID.randomUUID();
 
-        imgsave_name += "," + newfilename;
-        product.setProduct_img(imgsave_name);
+				newfilename = uuid.toString() + extension;
 
-      } else {
+				StringTokenizer st = new StringTokenizer(filename, ".");
+				file[0] = st.nextToken(); // 파일명 Koala
+				file[1] = st.nextToken(); // 확장자 jpg
 
-        product.setProduct_img(product.getProduct_img());
+				if (size > 10000000) { // 100KB
+					result = 2;
+					model.addAttribute("result", result);
 
+					return "main/uploadResult";
 
-      }
+				} else if (!file[1].equals("jpg") && !file[1].equals("gif") && !file[1].equals("png")) {
 
-    }
+					result = 3;
+					model.addAttribute("result", result);
 
-    String contentsave_name = "";
+					return "main/uploadResult";
+				}
 
-    for (int i = 0; i < mtlist2.size(); i++) {
+			}
+			if (size > 0) { // 첨부파일이 전송된 경우
 
-      String filename = mtlist2.get(i).getOriginalFilename();
+				mtlist2.get(i).transferTo(new File(path + "/" + newfilename));
 
-      int size = (int) mtlist2.get(i).getSize(); // 첨부파일의 크기 (단위:Byte)
+				contentsave_name += "," + newfilename;
+				product.setProduct_content(contentsave_name);
 
-      System.out.println("filename=" + filename); // filename="Koala.jpg"
-      System.out.println("size=" + size);
-      System.out.println("Path=" + path);
-      int result = 0;
+			} else {
 
-      String file[] = new String[2];
+				product.setProduct_content(product.getProduct_content());
 
-      String newfilename = "";
+			}
+		}
 
-      if (filename != "") { // 첨부파일이 전송된 경우
+		int result = ps.updateProduct(product);
 
-        // 파일 중복문제 해결
-        String extension = filename.substring(filename.lastIndexOf("."), filename.length());
-        System.out.println("extension:" + extension);
+		int product_num = product.getProduct_num();
 
-        UUID uuid = UUID.randomUUID();
+		List<Options> originOl = os.getOptionList(product_num);
 
-        newfilename = uuid.toString() + extension;
-        System.out.println("newfilename:" + newfilename);
+		int originOC = originOl.size();
 
-        StringTokenizer st = new StringTokenizer(filename, ".");
-        file[0] = st.nextToken(); // 파일명 Koala
-        file[1] = st.nextToken(); // 확장자 jpg
+		List newOptions = new ArrayList<>();
 
-        if (size > 10000000) { // 100KB
-          result = 2;
-          model.addAttribute("result", result);
+		int i = 0;
 
-          return "main/uploadResult";
+		while (request.getParameter("options_name" + i) != null) {
 
-        } else if (!file[1].equals("jpg") && !file[1].equals("gif") && !file[1].equals("png")) {
+			String options_name = (String) request.getParameter("options_name" + i);
+			newOptions.add(options_name);
 
-          result = 3;
-          model.addAttribute("result", result);
+			i++;
+		}
 
-          return "main/uploadResult";
-        }
+		int newOptionsCount = newOptions.size();
 
-      }
-      if (size > 0) { // 첨부파일이 전송된 경우
+		if (newOptionsCount > originOC) {
+			for (i = 0; i < newOptionsCount; i++) {
+				if (i < originOC) {
+					int options_num = Integer.parseInt(request.getParameter("options_num" + i));
+					String options_name = (String) request.getParameter("options_name" + i);
+					int options_price = Integer.parseInt(request.getParameter("options_price" + i));
+					int options_sale = Integer.parseInt(request.getParameter("options_sale" + i));
 
-        mtlist2.get(i).transferTo(new File(path + "/" + newfilename));
+					result = os.updateOptions(options_num, options_name, options_price, options_sale, product_num);
 
-        contentsave_name += "," + newfilename;
-        System.out.println("content save name :" + contentsave_name);
-        product.setProduct_content(contentsave_name);
+				} else if (i >= originOC) {
+					String options_name = (String) request.getParameter("options_name" + i);
+					int options_price = Integer.parseInt(request.getParameter("options_price" + i));
+					int options_sale = Integer.parseInt(request.getParameter("options_sale" + i));
 
-      } else {
+					result = os.insertOptions(options_name, options_price, options_sale, product_num);
 
-        product.setProduct_content(product.getProduct_content());
+				}
 
-      }
-    }
+			}
 
-    int result = ps.updateProduct(product);
+		} else if (originOC > newOptionsCount) {
+			for (i = 0; i < originOC; i++) {
+				if (i < newOptionsCount) {
+					int options_num = Integer.parseInt(request.getParameter("options_num" + i));
+					String options_name = (String) request.getParameter("options_name" + i);
+					int options_price = Integer.parseInt(request.getParameter("options_price" + i));
+					int options_sale = Integer.parseInt(request.getParameter("options_sale" + i));
 
-    int product_num = product.getProduct_num();
-    System.out.println("product_num 확인" + product_num);
+					result = os.updateOptions(options_num, options_name, options_price, options_sale, product_num);
 
-    List<Options> originOl = os.getOptionList(product_num);
+				} else {
+					String options_name = (String) request.getParameter("options_name" + i);
+					int options_price = Integer.parseInt(request.getParameter("options_price" + i));
+					int options_sale = Integer.parseInt(request.getParameter("options_sale" + i));
 
-    int originOC = originOl.size();
+					result = os.insertOptions(options_name, options_price, options_sale, product_num);
+				}
 
-    System.out.println("origin Options Count :" + originOC);
+			}
 
-    List newOptions = new ArrayList<>();
+		} else if (originOC == newOptionsCount) {
+			for (i = 0; i < originOC; i++) {
+				if (i <= newOptionsCount) {
+					int options_num = Integer.parseInt(request.getParameter("options_num" + i));
+					String options_name = (String) request.getParameter("options_name" + i);
+					int options_price = Integer.parseInt(request.getParameter("options_price" + i));
+					int options_sale = Integer.parseInt(request.getParameter("options_sale" + i));
 
-    int i = 0;
+					result = os.updateOptions(options_num, options_name, options_price, options_sale, product_num);
+				}
+			}
+		}
 
-    while (request.getParameter("options_name" + i) != null) {
+		model.addAttribute("result", result);
 
-      String options_name = (String) request.getParameter("options_name" + i);
-      newOptions.add(options_name);
-
-      i++;
-    }
-
-    int newOptionsCount = newOptions.size();
-
-    System.out.println("new options count : " + newOptionsCount);
-
-    if (newOptionsCount > originOC) {
-      for (i = 0; i < newOptionsCount; i++) {
-        if (i < originOC) {
-          int options_num = Integer.parseInt(request.getParameter("options_num" + i));
-          String options_name = (String) request.getParameter("options_name" + i);
-          int options_price = Integer.parseInt(request.getParameter("options_price" + i));
-          int options_sale = Integer.parseInt(request.getParameter("options_sale" + i));
-
-          System.out.println(i + "번째 옵션 업데이트 시작");
-
-          result =
-              os.updateOptions(options_num, options_name, options_price, options_sale, product_num);
-
-          if (result == 1) {
-            System.out.println(i + "번째 옵션 업데이트 완료");
-          } else {
-            System.out.println(i + "번째 옵션 업데이트 실패");
-          }
-        } else if (i >= originOC) {
-          String options_name = (String) request.getParameter("options_name" + i);
-          int options_price = Integer.parseInt(request.getParameter("options_price" + i));
-          int options_sale = Integer.parseInt(request.getParameter("options_sale" + i));
-
-          System.out.println(i + "번째 옵션 등록 시작");
-
-          result = os.insertOptions(options_name, options_price, options_sale, product_num);
-
-          if (result == 1) {
-            System.out.println(i + "번째 옵션 등록 완료");
-          } else {
-            System.out.println(i + "번째 옵션 등록 실패");
-          }
-        }
-
-      }
-
-    } else if (originOC > newOptionsCount) {
-      for (i = 0; i < originOC; i++) {
-        if (i < newOptionsCount) {
-          int options_num = Integer.parseInt(request.getParameter("options_num" + i));
-          String options_name = (String) request.getParameter("options_name" + i);
-          int options_price = Integer.parseInt(request.getParameter("options_price" + i));
-          int options_sale = Integer.parseInt(request.getParameter("options_sale" + i));
-
-          System.out.println(i + "번째 옵션 업데이트 시작");
-
-          result =
-              os.updateOptions(options_num, options_name, options_price, options_sale, product_num);
-
-          if (result == 1) {
-            System.out.println(i + "번째 옵션 업데이트 완료");
-          } else {
-            System.out.println(i + "번째 옵션 업데이트 실패");
-          }
-        } else {
-          String options_name = (String) request.getParameter("options_name" + i);
-          int options_price = Integer.parseInt(request.getParameter("options_price" + i));
-          int options_sale = Integer.parseInt(request.getParameter("options_sale" + i));
-
-          System.out.println(i + "번째 옵션 등록 시작");
-
-          result = os.insertOptions(options_name, options_price, options_sale, product_num);
-
-          if (result == 1) {
-            System.out.println(i + "번째 옵션 등록 완료");
-          } else {
-            System.out.println(i + "번째 옵션 등록 실패");
-          }
-        }
-
-      }
-
-    } else if (originOC == newOptionsCount) {
-      for (i = 0; i < originOC; i++) {
-        if (i <= newOptionsCount) {
-          int options_num = Integer.parseInt(request.getParameter("options_num" + i));
-          String options_name = (String) request.getParameter("options_name" + i);
-          int options_price = Integer.parseInt(request.getParameter("options_price" + i));
-          int options_sale = Integer.parseInt(request.getParameter("options_sale" + i));
-
-          System.out.println(i + "번째 옵션 업데이트 시작");
-
-          result =
-              os.updateOptions(options_num, options_name, options_price, options_sale, product_num);
-
-          if (result == 1) {
-            System.out.println(i + "번째 옵션 업데이트 완료");
-          } else {
-            System.out.println(i + "번째 옵션 업데이트 실패");
-          }
-        }
-
-      }
-    }
-
-    model.addAttribute("result", result);
-
-    return "main/uploadResult";
-  }
+		return "main/uploadResult";
+	}
 
 }

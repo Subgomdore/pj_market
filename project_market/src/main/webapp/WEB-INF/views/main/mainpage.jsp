@@ -11,7 +11,9 @@
 <section>
 	<div>
 		<div class="category-link-pj">
+			<div>
 			카테고리별 제품 찾기
+			</div>
 		</div>
 		<div class="swiper mySwiper">
 			<div class="swiper-wrapper">

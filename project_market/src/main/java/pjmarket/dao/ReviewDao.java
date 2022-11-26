@@ -14,7 +14,7 @@ public interface ReviewDao {
 
 	public int getListCount(int product_num);
 
-	public List<Review> getBoardList(int page,int product_num) throws Exception;
+	public List<Review> getBoardList(int page, int product_num) throws Exception;
 
 	public int updateHit(int review_no);
 
@@ -27,7 +27,5 @@ public interface ReviewDao {
 	public Review ReviewDelete(int review_no);
 
 	public int ReviewDeleteOk(Review review);
-
-
 
 }

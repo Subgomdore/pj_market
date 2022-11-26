@@ -12,57 +12,43 @@ import pjmarket.model.LikeList;
 import pjmarket.model.Likes;
 
 @Repository
-public class LikeDaoImpl implements LikeDao{
+public class LikeDaoImpl implements LikeDao {
 
 	@Autowired
 	private SqlSession sqlSession;
 
 	@Override
 	public List<LikeList> getLikeList(String member_id) {
-		// TODO Auto-generated method stub
-		System.out.println("like_list Dao 진입");
-		
 		List<LikeList> list = sqlSession.selectList("likens.like_list", member_id);
-		
 		return list;
 	}
-	
+
 	@Override
 	public int deleteLikes(int likes_num) {
-		System.out.println("deleteLike dao 진입");
-		
 		int result = 0;
-		
-		result = sqlSession.delete("likens.like_delete", likes_num);		
-		
-		System.out.println("result : " +result);
-		
+		result = sqlSession.delete("likens.like_delete", likes_num);
 		return result;
 	}
-	
+
 	@Override
 	public int insertLike(int product_num, int options_num, String member_id) {
-		System.out.println("insert Like dao");
-		
-		Map<String , Object> map = new HashMap<String, Object>();
+		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("product_num", product_num);
 		map.put("options_num", options_num);
 		map.put("member_id", member_id);
-		
+
 		Likes like = new Likes();
-		
 		like = sqlSession.selectOne("likens.selectlike", map);
-		
 		int result = 0;
-		
-		if(like == null) {
-			result = sqlSession.insert("likens.insertlike", map);			
-		}else {
+
+		if (like == null) {
+			result = sqlSession.insert("likens.insertlike", map);
+		} else {
 			result = 4;
 		}
-		
+
 		return result;
-		
+
 	}
-	
+
 }

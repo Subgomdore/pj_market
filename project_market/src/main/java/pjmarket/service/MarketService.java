@@ -7,7 +7,7 @@ import pjmarket.dao.MarketDao;
 
 @Service
 public class MarketService {
-	
+
 	@Autowired
 	private MarketDao dao;
 }

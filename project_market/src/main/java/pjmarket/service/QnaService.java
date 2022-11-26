@@ -12,14 +12,14 @@ public interface QnaService {
 	public int getListCount(int product_num);
 
 	public List<QnaBoard> getBoardList(int product_num, int page);
-	
+
 	public QnaBoard QnaUpdate(int qna_no);
-	
+
 	public int QnaUpdateok(QnaBoard qnaboard);
-	
+
 	public int QnaDelete(QnaBoard qnaboard);
-	
+
 	public Product getProduct(int product_num);
-	
+
 	public QnaBoard TestController();
 }
