@@ -84,7 +84,7 @@
 					
 				<li>
 					<div class="menu-box-pj active">
-						<a class="dropbtn-pj" href="https://github.com/Subgomdore/pj_market">GitHub링크</a>
+						<a class="dropbtn-pj" href="https://github.com/Subgomdore/pj_market"> <H2>GitHub링크입니다!</H2></a>
 					</div></li>
 
 			<c:if test="${member_id eq 'admin'}">
