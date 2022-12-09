@@ -6,6 +6,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+<script src="http://code.jquery.com/jquery-latest.js"></script>
 <c:set var="path" value="${pageContext.request.contextPath }" />
 <link href="${path}/resources/css/bootstrap.min.css" rel="stylesheet">
 
@@ -172,11 +173,11 @@
     // AJAX글쓰기
     $(function() {
     	$('#reInsert').click(function() {
-    		var member_id = '${member_id}';
+    		/* var member_id = '${member_id}';
     		if(!member_id.value){
     			alert('로그인이 필요합니다');
     			return false;
-    		}
+    		} */
     		if(!frm.qna_content.value){
     			alert('등록할 내용이 없슴. 내용을 입력하셈');
     			frm.qna_content.focus();
@@ -184,6 +185,9 @@
     		}
     	// #reInsert 종료
     		var frmData = $('form').serialize();
+    		var member_id = $('#member_id').val();
+    		console.log(member_id);
+    		
     		/* var frmData = 'member_id=' + frm.member_id.value +
     						'&product_num' + frm.product_num.value +
     						'&qna_re' + frm.qna_re.value +
@@ -270,7 +274,7 @@
 
 </script>
 
-<script src="http://code.jquery.com/jquery-latest.min.js"></script>
+
 <script src="${path}/resources/js/jquery.js"></script>
 <script src="${path}/resources/js/bootstrap.min..js"></script>
 </html>

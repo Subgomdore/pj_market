@@ -12,8 +12,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-
 import pjmarket.model.Product;
 import pjmarket.model.QnaBoard;
 import pjmarket.service.QnaServiceImpl;
@@ -73,7 +71,7 @@ public class QnaController {
 
 	// QNA테이블 게시판글작성 메소드
 	@RequestMapping("qna_boardinsert.do")
-	public String QnaInsert(QnaBoard qnaboard, Model model) throws Exception {
+	public String QnaInsert(QnaBoard qnaboard, Model model) {
 		qs.QnaInsert(qnaboard);
 		int product_num = qnaboard.getProduct_num();
 		model.addAttribute("qnaboard", qnaboard);
@@ -84,7 +82,7 @@ public class QnaController {
 	@RequestMapping("qna_updateform.do")
 	public String QnaUpdate(HttpServletRequest requset, QnaBoard qna, Product product, Model model) throws Exception {
 		System.out.println("qna_updateform.do 컨트롤러");
-
+		System.out.println(qna.getMember_id());
 		qna = qs.QnaUpdate(qna.getQna_no());
 		product = qs.getProduct(qna.getProduct_num());
 
@@ -109,23 +107,6 @@ public class QnaController {
 		model.addAttribute("qnaboard", qnaboard);
 		model.addAttribute("result", result);
 		return "redirect:/qna_boardlist.do?product_num=" + product_num;
-	}
-
-	// ------------------------------ 테스트 컨트롤러 프로젝트랑 관련없는 실험내용임
-	@RequestMapping("testcontroller.do")
-	public String TestController(QnaBoard qlist, Model model) {
-		qlist = qs.TestController();
-		model.addAttribute("qlist", qlist);
-		return "qna/testcontroller";
-	}
-
-	@RequestMapping("ok.do")
-	@ResponseBody
-	public String Ok(QnaBoard qnaboard, Model model) {
-		System.out.println("ok.do controller");
-		ObjectMapper mapper = new ObjectMapper();
-
-		return null;
 	}
 
 }
