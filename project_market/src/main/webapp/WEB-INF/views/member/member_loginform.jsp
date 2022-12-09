@@ -14,7 +14,7 @@
 
 			<div id="member_login" >
 				<h2 class="login_title">로그인</h2>
-				<form method="post" action="member_login_ok.do" onsubmit="return check()">
+				<form method="post" action="member_login_ok.do" onsubmit="return logincheck()">
 					<table id="login_t">
 						<tr>
 							<th>ID</th>

@@ -6,12 +6,15 @@
 
 	<!-- 회원저장 -->
 	<insert id="member_join" parameterType="member">
-		insert into member (member_no,member_id,member_pw,member_name,
+<!-- 		insert into member (member_no,member_id,member_pw,member_name,
 		member_zip1,member_addr1,member_addr2,member_phone,member_phone2,member_phone3,member_email,member_domain,
 		member_date,join_state) values(join_member_memberno_seq.nextval,
 		#{member_id},#{member_pw},#{member_name},
 		#{member_zip1},#{member_addr1},#{member_addr2},
-		#{member_phone},#{member_phone2},#{member_phone3},#{member_email},#{member_domain},sysdate,1)
+		#{member_phone},#{member_phone2},#{member_phone3},#{member_email},#{member_domain},sysdate,1) -->
+		
+		insert into member (member_id,member_pw,member_name,member_email,member_date,join_state,member_domain,member_addr1,member_addr2,member_phone3,member_phone2,member_phone, member_zip1, member_no )
+					values (#{member_id},#{member_pw},#{member_name},#{member_email},sysdate,1,#{member_domain},#{member_addr1},#{member_addr2},#{member_phone3},#{member_phone2},#{member_phone},#{member_zip1}, member_seq.nextval	)	 
 	</insert>
 	
 	<!-- 로그인 인증 --> 

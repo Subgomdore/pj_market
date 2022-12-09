@@ -1,5 +1,17 @@
-﻿
- function check(){
+﻿function logincheck(){
+	 if($.trim($("#member_id").val())==""){
+		 alert("아이디를 입력하세요.");
+		 $("#member_id").val("").focus();
+		 return false;
+	 }
+	 if($.trim($("#member_pw").val())==""){
+		 alert("비밀번호를 입력하세요.");
+		 $("#member_pw").val("").focus();
+		 return false;
+	 }
+ }
+ 
+function check(){
 	 if($.trim($("#member_id").val())==""){
 		 alert("아이디를 입력하세요.");
 		 $("#member_id").val("").focus();
@@ -24,7 +36,7 @@
 		 return false;
 	 }
 	 if($.trim($("#member_name").val())==""){
-		 alert("회원이름을 입력하세요.");
+		 alert("회원이름을 입력하세요?.");
 		 $("#member_name").val("").focus();
 		 return false;
 	 }

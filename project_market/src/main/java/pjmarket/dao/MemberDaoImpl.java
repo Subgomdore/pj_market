@@ -3,6 +3,7 @@ package pjmarket.dao;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+import com.sun.xml.internal.bind.v2.schemagen.xmlschema.List;
 
 import pjmarket.model.MemberDTO;
 
@@ -15,6 +16,21 @@ public class MemberDaoImpl implements MemberDao {
 	// 회원 가입정보 저장
 	@Override
 	public int MemberInsert(MemberDTO member) throws Exception {
+		System.out.println("member_id :"+member.getMember_id());
+		System.out.println("member_pw :"+member.getMember_pw());
+		System.out.println("member_name :"+member.getMember_name());
+		System.out.println("member_email :"+member.getMember_email());
+		System.out.println("member_domain :"+member.getMember_domain());
+		System.out.println("member_pw2 :"+member.getMember_pw2());
+		System.out.println("member_add1 :"+member.getMember_addr1());
+		System.out.println("member_add2 :"+member.getMember_addr2());
+		System.out.println("member_tel3 :"+member.getMember_tel3());
+		System.out.println("member_phone3 :"+member.getMember_phone3());
+		System.out.println("member_phone2 :"+member.getMember_phone2());
+		System.out.println("member_phone :"+member.getMember_phone());
+		System.out.println("member_zip1 :"+member.getMember_zip1());
+		
+		
 		return session.insert("memberns.member_join", member);
 	}
 
